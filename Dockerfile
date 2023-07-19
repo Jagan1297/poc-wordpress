@@ -6,6 +6,7 @@ COPY . /var/www/html/
 # Install any necessary dependencies
 RUN apt-get update && apt-get install -y mysql-client
 
+#Environment
 ENV
     WORDPRESS_DB_HOST: wordpress.ckbmchm8dgx6.us-west-1.rds.amazonaws.com
     WORDPRESS_DB_USER: admin
