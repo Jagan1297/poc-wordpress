@@ -1,0 +1,27 @@
+name: MiddlewareHQ Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  middlewarehq:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up MiddlewareHQ environment
+      - name: Set up MiddlewareHQ
+        env:
+          MIDDLEWAREHQ_GITHUB_TOKEN: ${{ secrets.MIDDLEWAREHQ_GITHUB_TOKEN }}
+        run: |
+          # Replace with your MiddlewareHQ command or script, e.g.,
+          # Run MiddlewareHQ CLI or other integration steps
+          echo "Setting up MiddlewareHQ with access token"
+          # Add commands to authenticate MiddlewareHQ and perform necessary actions
