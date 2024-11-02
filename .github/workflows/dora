@@ -1,0 +1,36 @@
+name: DORA Metrics Workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Collect DORA Metrics
+        run: |
+          # Log DORA metrics to MiddlewareHQ
+          curl -X POST http://localhost:3333/dora_metrics \
+            -H "Content-Type: application/json" \
+            -d '{
+              "event_type": "pr_created",
+              "timestamp": "'$(date +%s)'",
+              "repo_name": "'${{ github.repository }}'",
+              "pr_id": "'${{ github.event.pull_request.id }}'"
+            }'
